@@ -1,4 +1,3 @@
-import fs from 'fs';
 import multer from "multer";
 import path from 'path';
 
@@ -35,3 +34,23 @@ const upload = multer({storage:storage,
 
 
 export default upload;
+
+
+// import multer from "multer";
+
+// // Memory storage (works on Vercel serverless)
+// const storage = multer.memoryStorage();
+
+// const upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 3 * 1024 * 1024 // 3 MB
+//   },
+//   fileFilter: function (req, file, cb) {
+//     const allowed = /jpeg|jpg|png|webp/;
+//     const extname = file.originalname.split('.').pop().toLowerCase();
+//     allowed.test(extname) ? cb(null, true) : cb(new Error('Only images allowed'));
+//   }
+// });
+
+// export default upload;

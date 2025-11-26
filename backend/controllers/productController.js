@@ -1,6 +1,19 @@
 
 import Product from "../models/productModel.js";
 
+const getImageUrl = (req) => {
+  // If a file is uploaded
+  if (req.file) return `/uploads/${req.file.filename}`;
+
+  // If client sent an image URL in the request body
+  if (req.body.images && req.body.images.length > 0) return req.body.images;
+
+  // Default placeholder image
+  return ["https://placehold.co/300x300?text=No+Image"];
+};
+
+
+
   export const getProducts = async(req, res)=>{
 
     
@@ -59,7 +72,10 @@ export const createProduct = async (req, res) => {
            rating,
 
          
-          images: req.file ? [`/uploads/${req.file.filename}`] : [], 
+          //images: req.file ? [`/uploads/${req.file.filename}`] : [], 
+
+          images: getImageUrl(req),
+
         })
 
     await ProductData.save()
