@@ -1,7 +1,8 @@
+import fs from 'fs';
 import multer from "multer";
 import path from 'path';
-
 const uploadDir = path.resolve('uploads')
+
 //if not exist, create new folder with the name 'uploads'
 if(!fs.existsSync(uploadDir)){
 fs.mkdirSync(uploadDir, {recursive:true}) //create nested parent folder if needed
@@ -36,21 +37,4 @@ const upload = multer({storage:storage,
 export default upload;
 
 
-// import multer from "multer";
 
-// // Memory storage (works on Vercel serverless)
-// const storage = multer.memoryStorage();
-
-// const upload = multer({
-//   storage: storage,
-//   limits: {
-//     fileSize: 3 * 1024 * 1024 // 3 MB
-//   },
-//   fileFilter: function (req, file, cb) {
-//     const allowed = /jpeg|jpg|png|webp/;
-//     const extname = file.originalname.split('.').pop().toLowerCase();
-//     allowed.test(extname) ? cb(null, true) : cb(new Error('Only images allowed'));
-//   }
-// });
-
-// export default upload;
