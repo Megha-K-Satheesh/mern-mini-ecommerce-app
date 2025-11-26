@@ -5,11 +5,6 @@ const productRouters = express.Router();
 
 
 
-// productRouters.post("/products", (req,res)=>{
-//    res.send(" from productRouters ")
-// });
-
-//productRouters.post("/products",createProduct)
 productRouters.post("/products", upload.single("images"), createProduct);
 productRouters.get("/products",getProducts)
 
