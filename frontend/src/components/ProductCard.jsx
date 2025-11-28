@@ -10,8 +10,8 @@ function ProductCard() {
   const { products,loading } = state;
   
 
-  if (loading) return <p className="text-center mt-50">Loading...</p>;
-  if (!products || products.length === 0) return <p className="text-center mt-50">No products available.</p>;
+  // if (loading) return <p className="text-center mt-50">Loading...</p>;
+  // if (!products || products.length === 0) return <p className="text-center mt-50">No products available.</p>;
 
   return (
   
