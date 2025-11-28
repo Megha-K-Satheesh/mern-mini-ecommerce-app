@@ -84,10 +84,10 @@ const ProductProvider = ({ children }) => {
  
      
     
-     await axios.post(`${API_BASE_URL}/api/products`,values   , {
-      headers: { "Content-Type": "multipart/form-data" }});
+ const uploadProducts  =await axios.post(`${API_BASE_URL}/api/products`,values   , {
+      headers: { "Content-Type":"application/json" }});
 
-      console.log("Product added successfully");
+      console.log("Product added successfully",uploadProducts);
     
     } catch (error) {
       console.log(error.message);

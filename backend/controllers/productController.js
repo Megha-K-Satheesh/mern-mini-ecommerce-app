@@ -1,16 +1,7 @@
 
 import Product from "../models/productModel.js";
 
-const getImageUrl = (req) => {
-  // If a file is uploaded
-  if (req.file) return `/uploads/${req.file.filename}`;
 
-  // If client sent an image URL in the request body
-  if (req.body.images && req.body.images.length > 0) return req.body.images;
-
-  // Default placeholder image
-  return ["https://placehold.co/300x300?text=No+Image"];
-};
 
 
 
@@ -62,19 +53,27 @@ const getImageUrl = (req) => {
 
 export const createProduct = async (req, res) => {
   const {title,category,description,price,rating,images} = req.body;
+
+
+  if (!title || !category || !description || !price || !rating || !images) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+
   try {
-    
+      
+
     const ProductData = new Product({
            title,
            category,
            description,
            price,
            rating,
-
+           images
          
-          //images: req.file ? [`/uploads/${req.file.filename}`] : [], 
+        
 
-          images: getImageUrl(req),
+       
 
         })
 

@@ -18,13 +18,14 @@ function ProductCard() {
     <div className="mx-7 sm:mx-25 mt-40 sm:mt-45 ">
       {/* Desktop Grid */}
       <div className="hidden sm:grid sm:grid-cols-4 sm:grid-rows-2 sm:gap-1 sm:mx-10">
-        {products.map((item) => (
+        {products && products.map((item) => ( 
           <div
             key={item._id}
             className=" rounded-lg overflow-hidden  sm:w-60  sm:h-110 shadow-md bg-white flex flex-col sm:mt-20  "
           >
             <img
-              src={`${API_BASE_URL}${item.images[0]}`}
+            
+              src={item.images}
               alt={item.title}
               className="sm:w-full sm:p-4 sm:h-70"
             />

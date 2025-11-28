@@ -1,75 +1,40 @@
 
-import { ErrorMessage, Field, Form, Formik, useField } from "formik";
-import { useContext, useState } from "react";
+
+
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { ProductContext } from "../contextAPI/productContext";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL;
-
-// File input component
-const FileInput = ({ label, ...props }) => {
-  const [field, meta, helpers] = useField(props);
-  const [preview, setPreview] = useState(null);
-
-  const handleChange = (event) => {
-    const file = event.currentTarget.files[0];
-    helpers.setValue(file);
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    } else {
-      setPreview(null);
-    }
-  };
-
-  return (
-    <div className="flex flex-col">
-      <label className="font-semibold mb-1">{label}</label>
-      <input
-        type="file"
-        name={props.name}
-        onChange={handleChange}
-        className="mt-1 border border-gray-300 rounded p-2 text-sm"
-      />
-      {preview && (
-        <img
-          src={preview}
-          alt="preview"
-          className="mt-2 w-24 h-24 object-cover rounded border"
-        />
-      )}
-      {meta.touched && meta.error && (
-        <div className="text-red-600 text-sm mt-1">{meta.error}</div>
-      )}
-    </div>
-  );
-};
-
-// Validation Schema
-const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  category: Yup.string().required("Category is required"),
-  description: Yup.string().required("Description is required"),
-  price: Yup.number()
-    .typeError("Price must be a number")
-    .positive("Price must be positive")
-    .required("Price is required"),
-  rating: Yup.number()
-    .typeError("Rating must be a number")
-    .min(0, "Rating must be at least 0")
-    .max(5, "Rating cannot exceed 5")
-    .required("Rating is required"),
-  images: Yup.mixed().required("Image is required"),
-});
 
 function AddProducts() {
   const { addProducts } = useContext(ProductContext);
   const navigate = useNavigate();
 
+  // Validation Schema
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required("Title is required"),
+    category: Yup.string().required("Category is required"),
+    description: Yup.string().required("Description is required"),
+    price: Yup.number()
+      .typeError("Price must be a number")
+      .positive("Price must be positive")
+      .required("Price is required"),
+    rating: Yup.number()
+      .typeError("Rating must be a number")
+      .min(0, "Rating must be at least 0")
+      .max(5, "Rating cannot exceed 5")
+      .required("Rating is required"),
+    images: Yup.string()
+      .url("Must be a valid URL")
+      .required("Image URL is required"),
+  });
+
   const handleSubmit = async (values, { resetForm }) => {
     await addProducts(values);
     resetForm();
     navigate("/");
+    alert("Product created successfully!");
     console.log(values);
   };
 
@@ -83,13 +48,12 @@ function AddProducts() {
           description: "",
           price: "",
           rating: "",
-          images: null,
+          images: "",
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
-
+        {({ isSubmitting, values }) => (
           <Form className="space-y-4">
             {/* Title */}
             <div className="flex flex-col">
@@ -176,8 +140,31 @@ function AddProducts() {
               />
             </div>
 
-            {/* Image Upload */}
-            <FileInput label="Image" name="images" />
+            {/* Image URL */}
+            <div className="flex flex-col">
+              <label className="font-semibold mb-1">Image URL</label>
+              <Field
+                type="text"
+                name="images"
+                placeholder="Paste image URL here"
+                className="border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-400"
+              />
+              <ErrorMessage
+                name="images"
+                component="div"
+                className="text-red-600 text-sm mt-1"
+              />
+
+              {/* Live Preview */}
+              {values.images && (
+                <img
+                  src={values.images}
+                  alt="preview"
+                  className="mt-2 w-24 h-24 object-cover rounded border"
+                  onError={(e) => (e.target.style.display = "none")}
+                />
+              )}
+            </div>
 
             {/* Submit Button */}
             <button
