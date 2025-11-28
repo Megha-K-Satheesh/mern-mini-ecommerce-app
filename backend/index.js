@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 //app.use(cors("*"));
 app.use(cors({
   origin: [
-    "http://localhost:5173",
-    "https://mern-mini-ecommerce-app-frontend-qqmcvluc5-megha-k-ss-projects.vercel.app"
+    "http://localhost:5173"
+    // "https://mern-mini-ecommerce-app-frontend-qqmcvluc5-megha-k-ss-projects.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
