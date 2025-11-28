@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import express from "express";
 import productRouters from './routes/productRouters.js';
 
-
+import connectDB from './config/db.js';
 dotenv.config();
 
 connectDB()
