@@ -50,7 +50,7 @@ function ProductCard() {
 
       {/* Mobile List */}
       <div className="flex flex-col sm:hidden gap-4">
-        {products.map((item) => (
+        {products &&  products.map((item) => (
           <div
             key={item._id}
             className="flex  rounded-lg overflow-hidden shadow-md bg-white"
