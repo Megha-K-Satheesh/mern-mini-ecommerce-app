@@ -12,11 +12,8 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(cors("*"));
-app.use(cors({
-    origin: 'https://mern-mini-ecommerce-app-frontend-qqmcvluc5-megha-k-ss-projects.vercel.app',
-    credentials: true
-}));
+app.use(cors("*"));
+
 //.use('/api/upload', express.static('public/uploads'));
 
 app.get("/", (req, res) => {
