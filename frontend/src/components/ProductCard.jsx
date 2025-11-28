@@ -7,18 +7,20 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function ProductCard() {
   const { state } = useContext(ProductContext);
-  const { products,loading } = state;
+ const { loading } = state;
   
+  
+  const products = state?.products || [];
 
-  // if (loading) return <p className="text-center mt-50">Loading...</p>;
-  // if (!products || products.length === 0) return <p className="text-center mt-50">No products available.</p>;
+  if (loading) return <p className="text-center mt-50">Loading...</p>;
+  if (!products || products.length === 0) return <p className="text-center mt-50">No products available.</p>;
 
   return (
   
     <div className="mx-7 sm:mx-25 mt-40 sm:mt-45 ">
       {/* Desktop Grid */}
       <div className="hidden sm:grid sm:grid-cols-4 sm:grid-rows-2 sm:gap-1 sm:mx-10">
-        {products && products.map((item) => ( 
+        {products.map((item) => ( 
           <div
             key={item._id}
             className=" rounded-lg overflow-hidden  sm:w-60  sm:h-110 shadow-md bg-white flex flex-col sm:mt-20  "
@@ -50,7 +52,7 @@ function ProductCard() {
 
       {/* Mobile List */}
       <div className="flex flex-col sm:hidden gap-4">
-        {products &&  products.map((item) => (
+        {products.map((item) => (
           <div
             key={item._id}
             className="flex  rounded-lg overflow-hidden shadow-md bg-white"
