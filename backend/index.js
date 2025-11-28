@@ -16,6 +16,10 @@ app.use(cors("*"));
 
 //.use('/api/upload', express.static('public/uploads'));
 
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
+
 app.use('/api', productRouters)
 
 
