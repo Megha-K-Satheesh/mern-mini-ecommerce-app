@@ -1,14 +1,12 @@
 
-import dotenv from "dotenv";
-
 import cors from 'cors';
+import dotenv from "dotenv";
 import express from "express";
-import connectDB from './config/db.js';
 import productRouters from './routes/productRouters.js';
 
 
 dotenv.config();
-//dotenv.config({ path: path.resolve("./backend/.env") });
+
 connectDB()
 const app = express();
 
