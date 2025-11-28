@@ -40,7 +40,7 @@ const ProductProvider = ({ children }) => {
         const fetchProducts = async()=>{
             dispatch({type:'SET_LOADING', payload:true})
             try {
-                //const response = await axios.get(`${API_BASE_URL}/api/products?${queryString}`)
+              
                 const response = await axios.get(`${API_BASE_URL}/api/products?${queryString}`, {
   headers: { 'Cache-Control': 'no-cache' }
 });

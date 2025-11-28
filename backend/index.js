@@ -2,9 +2,8 @@
 import cors from 'cors';
 import dotenv from "dotenv";
 import express from "express";
-import productRouters from './routes/productRouters.js';
-
 import connectDB from './config/db.js';
+import productRouters from './routes/productRouters.js';
 dotenv.config();
 
 connectDB()
@@ -12,8 +11,12 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-
+//app.use(cors());
+app.use(cors({
+  origin: 'https://mern-mini-ecommerce-app-frontend-ced739w8a-megha-k-ss-projects.vercel.app',
+  methods: ['GET','POST','PUT','DELETE'],
+  credentials: true
+}));
 //.use('/api/upload', express.static('public/uploads'));
 
 app.get("/", (req, res) => {
